@@ -4,7 +4,10 @@ from pygame.locals import *
 pygame.init()
 screen = pygame.display.set_mode((800, 900), pygame.RESIZABLE)
 
+
 clock = pygame.time.Clock()
+
+w,h = pygame.display.get_surface().get_size()
 
 while True:
     # Process player inputs.
@@ -12,6 +15,9 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             raise SystemExit
+        if event.type == pygame.VIDEORESIZE:
+            w,h = pygame.display.get_surface().get_size()
+            print(w, h)
 
     # Do logical updates here.
     # ...
