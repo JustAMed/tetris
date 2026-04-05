@@ -1,57 +1,35 @@
 import time
 from termcolor import colored
-from blocks import Block
+from classes import Block, Grid
 
 def main():
-    rows = 18
-    cols = 10
-    grid = make_grid(rows, cols)
+    grid = Grid(rows=18, cols=10)
     
-    print_grid(grid)
-    test(grid, rows)
+    print(grid)
+    test(grid)
 
-def make_grid(rows, cols):
-    grid = []
-    for _ in range(rows):
-        tmp = []
-        for _ in range(cols):
-            tmp.append(0)
-        grid.append(tmp)
+def test(grid):
+    for i in range(grid.cols):
+        for _ in range(grid.rows):
+            fall_test(grid, i)
 
-    return grid
 
-def test(grid, rows):
-    for i in range(10):
-        for _ in range(18):
-            fall_test(grid, i, rows)
-
-def print_grid(grid):
-    for i in grid:
-        row = []
-        for j in i:
-            if j == 1:
-                row.append(colored(j, "red"))
-            elif j == 0:
-                row.append(colored(j, "green"))
-        print(*row)
-    print("\n")
-
-def fall_test(grid, pos, rows):
+def fall_test(grid, pos):
     i = 0
     while True:
-        grid[i][pos] = 1
+        grid.grid[i][pos] = 1
         if i != 0:
-            grid[i-1][pos] = 0
+            grid.grid[i-1][pos] = 0
         time.sleep(0.01)
-        print_grid(grid)
-        if check_collision(grid, pos, rows, i) == True:
+        print(grid)
+        if check_collision(grid, pos, i) == True:
             break
         i += 1
     
     return grid
 
-def check_collision(grid, pos, rows, i):
-    return i+1 == rows or grid[i+1][pos] == 1
+def check_collision(grid, pos, i):
+    return i+1 == grid.rows or grid.grid[i+1][pos] == 1
 
 if __name__ == "__main__":
     main()
