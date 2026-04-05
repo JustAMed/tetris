@@ -1,14 +1,14 @@
 import time
-from termcolor import colored, cprint
+from termcolor import colored
+from blocks import Block
 
 def main():
     rows = 18
     cols = 10
     grid = make_grid(rows, cols)
-
+    
     print_grid(grid)
     test(grid, rows)
-
 
 def make_grid(rows, cols):
     grid = []
@@ -36,7 +36,6 @@ def print_grid(grid):
         print(*row)
     print("\n")
 
-
 def fall_test(grid, pos, rows):
     i = 0
     while True:
@@ -45,12 +44,19 @@ def fall_test(grid, pos, rows):
             grid[i-1][pos] = 0
         time.sleep(0.01)
         print_grid(grid)
-        if i+1 == rows or grid[i+1][pos] == 1:
+        if check_collision(grid, pos, rows, i) == True:
             break
         i += 1
     
     return grid
 
+def check_collision(grid, pos, rows, i):
+    return i+1 == rows or grid[i+1][pos] == 1
 
 if __name__ == "__main__":
     main()
+
+# I should try and make different blocks. They would need a class for representation, I believe.
+# I guess I should make a different class for them. But how would I represent them? That's not exactly
+# easy. I know I would be needing a 4x4 block for representing them, though..Maybe a list of lists?
+# Can't see any other way.
