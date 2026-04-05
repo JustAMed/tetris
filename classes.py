@@ -1,16 +1,56 @@
 from termcolor import colored
+from random import choice
+
 
 class Block:
     def __init__(self):
         blocks = {
             'I': [
-                0, 0, 0, 0,
-                1, 1, 1, 1,
-                0, 0, 0, 0,
-                0, 0, 0, 0
-            ]
+                [0, 0, 0, 0],
+                [1, 1, 1, 1],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+            ],
+            'J': [
+                [0, 0, 0, 0],
+                [1, 0, 0, 0],
+                [1, 1, 1, 0],
+                [0, 0, 0, 0]
+            ],
+            'L': [
+                [0, 0, 0, 0],
+                [0, 0, 1, 0],
+                [1, 1, 1, 0],
+                [0, 0, 0, 0]
+            ],
+            'O': [
+                [0, 0, 0, 0],
+                [0, 1, 1, 0],
+                [0, 1, 1, 0],
+                [0, 0, 0, 0]
+            ],
+            'S': [
+                [0, 0, 0, 0],
+                [0, 1, 1, 0],
+                [1, 1, 0, 0],
+                [0, 0, 0, 0]
+            ],
+            'T': [
+                [0, 0, 0, 0],
+                [0, 1, 0, 0],
+                [1, 1, 1, 0],
+                [0, 0, 0, 0]
+            ],
+            'Z': [
+                [1, 1, 0, 0],
+                [0, 1, 1, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+            ],
         }
-        self.block = blocks['I']
+        keys = list(blocks.keys())
+        self.key = choice(keys)
+        self.block = blocks[self.key]
 
 class Grid:
     def __init__(self, rows, cols):
@@ -35,5 +75,6 @@ class Grid:
             row = [str(v) for v in row]
             lines.append(" ".join(row))
         return f"{'\n'.join(lines)}\n\n\n\n\n"
+    
     
     

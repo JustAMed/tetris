@@ -7,33 +7,26 @@ import random
 def main():
     grid = Grid(rows=18, cols=10)
     block = Block()
+    render_shape(block)
 
-    print(grid)
-    for _ in range(180):
-        fall_test(grid, block)
-
-
-def fall_test(grid, block):
+def fall(grid, block):
     i = 0
-    pos = random_col(grid)
-    while True:
-        grid.grid[i][pos] = 1
-        if i != 0:
-            grid.grid[i-1][pos] = 0
-        time.sleep(0.01)
-        print(grid)
-        if check_collision(grid, pos, i) == True:
-            break
-        i += 1
-    
+    for y in block.block:
+        for x in y:
+            if x == 1:
+                print("@")
     return grid
 
-def random_col(grid):
-    res = []
-    for i in range(grid.cols):
-        if grid.grid[0][i] == 0:
-            res.append(i)
-    return random.choice(res)
+def render_shape(block):
+    res = ""
+    for y in block.block:
+        for x in y:
+            if x == 1:
+                res += "#"
+            elif x == 0:
+                res += " "
+        res += "\n"
+    print(res.rstrip())
 
 def check_collision(grid, pos, i):
     return i+1 == grid.rows or grid.grid[i+1][pos] == 1
