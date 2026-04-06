@@ -1,35 +1,42 @@
-import time
-import os
-from termcolor import colored
-from classes import Block, Grid
+from copy import deepcopy
 import random
+import time
+from classes import Block, Grid
 
 def main():
-    grid = Grid(rows=18, cols=10)
-    block = Block()
-    render_shape(block)
+    active = Grid(rows=18, cols=10)
+    static = Grid(rows=18, cols=10)
+    blocks = []
+    for _ in range(5):
+        blocks.append(Block())
+    for i in blocks:
+        fall(active, static, i)
 
-def fall(grid, block):
-    i = 0
-    for y in block.block:
-        for x in y:
-            if x == 1:
-                print("@")
+
+def copy(active, static):
+    static = deepcopy(active)
+    active = Grid(rows=18, cols=10)
+    return active, static
+
+def fall(active, static, block):
+    posX = random.randint(0, static.cols - 10)
+    for posY in range(static.rows - 4):
+        time.sleep(0.5)
+        active, static = copy(render_shape(active, block, posX, posY), static)
+        print(static)
+
+def render_shape(grid, block, posX, posY):   
+    # Draw a block on grid. posX and posY refer to the position of the top left corner. 
+    for y_index, y_value in enumerate(block.block):
+        for x_index, x_value in enumerate(y_value):
+            if x_value != 0:
+                grid.grid[y_index + posY][x_index + posX] = 1
     return grid
 
-def render_shape(block):
-    res = ""
-    for y in block.block:
-        for x in y:
-            if x == 1:
-                res += "#"
-            elif x == 0:
-                res += " "
-        res += "\n"
-    print(res.rstrip())
 
-def check_collision(grid, pos, i):
-    return i+1 == grid.rows or grid.grid[i+1][pos] == 1
+
+def check_collision():
+    ...
 
 if __name__ == "__main__":
     main()

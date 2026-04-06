@@ -25,8 +25,8 @@ class Block:
             ],
             'O': [
                 [0, 0, 0, 0],
-                [0, 1, 1, 0],
-                [0, 1, 1, 0],
+                [1, 1, 0, 0],
+                [1, 1, 0, 0],
                 [0, 0, 0, 0]
             ],
             'S': [
@@ -74,7 +74,7 @@ class Grid:
                     row.append(colored(j, "green"))
             row = [str(v) for v in row]
             lines.append(" ".join(row))
-        return f"{'\n'.join(lines)}\n\n\n\n\n"
+        return f"{'\n'.join(lines)}\n"
     
     
     
