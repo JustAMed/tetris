@@ -6,8 +6,6 @@ import random
 def main():
     grid = Grid(rows=18, cols=10)
     block = Block()
-
-    print(grid)
     fall(grid, block)
 
 def fall(grid, block):
@@ -16,6 +14,7 @@ def fall(grid, block):
     for i in range(5):
         # check_collision()
         render(grid, block, x_offset, y_offset)
+        # delete(grid, block, x_offset, y_offset)
         y_offset += 1
         print(grid)
     return grid
@@ -25,12 +24,13 @@ def random_col(grid):
 
 def render(grid, block, x_offset, y_offset):
     y_val = -1
-    for y in enumerate(block.block):
+    for y in block.block:
         if y != [0,0,0,0]:
             continue;
-        y += 1
-        for x in y:
-            grid.grid[y_val + y_offset][x + x_offset] = 1
+        y_val += 1
+        for x_val, x in enumerate(y):
+            if x == 0:
+                grid.grid[y_val + y_offset][x_val + x_offset] = 1
 
     return grid
 
