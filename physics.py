@@ -9,38 +9,37 @@ def main():
     fall(grid, block)
 
 def fall(grid, block):
-    y_offset = 0
-    x_offset = random_col(grid)
+    block.x_offset = random_col(grid)
     for i in range(18):
         # check_collision()
-        render(grid, block, x_offset, y_offset)
+        render(grid, block)
         print(grid)
-        delete(grid, block, x_offset, y_offset)
+        delete(grid, block)
         y_offset += 1
-        time.sleep(0.5)
+        time.sleep(0.1)
 
     return grid
 
 def random_col(grid):
     return random.randint(0, grid.cols - 4)
 
-def delete(grid, block, x_offset, y_offset):
+def delete(grid, block):
     # for x,y in block, erase i-1 unless it's 0
     tmp = cleanse(block.block)
     for y_pos, y in enumerate(tmp):
         for x_pos, x in enumerate(y):
-            grid.grid[y_pos + y_offset][x_pos + x_offset] = 0
+            grid.grid[y_pos + block.y_offset][x_pos + block.x_offset] = 0
 
     return grid
 
 
-def render(grid, block, x_offset, y_offset):
+def render(grid, block):
     # cleanse
     tmp = cleanse(block.block)
     for y_val, y in enumerate(tmp):
         for x_val, x in enumerate(y):
             if x == 1:
-                grid.grid[y_val + y_offset][x_val + x_offset] = 1
+                grid.grid[y_val + block.y_offset][x_val + block.x_offset] = 1
 
     return grid
 
@@ -51,8 +50,10 @@ def cleanse(tmp):
             res.append(i)
     return res
 
-def check_collision(grid, pos, i):
-    return False #TODO
+def check_collision(grid, block):
+    # for x, y in block, if x, y+1 is 1, return True, else return False
+
+    return False 
 
 if __name__ == "__main__":
     main()
