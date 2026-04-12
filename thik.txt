@@ -1,0 +1,13 @@
+To make block fall, loop over each row and each column in the block.
+That gives us the location of these blocks.
+We place them with an offset of x_offset, and y_offset
+x_offset is a random colum between 0 and the columns - ...4
+y_offset is the value of the previous block's y level. starts from 0, increased, then 1, increased...until collisio.
+I think..what if I make two loops?
+Loop 1:
+Loop over each block, checking if it fits. If not, return False.
+Loop 2: 
+Placement
+
+Right.
+Let's do this then.

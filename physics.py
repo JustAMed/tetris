@@ -1,5 +1,4 @@
 import time
-import os
 from termcolor import colored
 from classes import Block, Grid
 import random
@@ -9,31 +8,31 @@ def main():
     block = Block()
 
     print(grid)
-    for _ in range(180):
-        fall_test(grid, block)
+    fall(grid, block)
 
-
-def fall_test(grid, block):
-    i = 0
-    pos = random_col(grid)
-    while True:
-        grid.grid[i][pos] = 1
-        if i != 0:
-            grid.grid[i-1][pos] = 0
-        time.sleep(0.01)
+def fall(grid, block):
+    y_offset = 0
+    x_offset = random_col(grid)
+    for i in range(5):
+        # check_collision()
+        render(grid, block, x_offset, y_offset)
+        y_offset += 1
         print(grid)
-        if check_collision(grid, pos, i) == True:
-            break
-        i += 1
-    
     return grid
 
 def random_col(grid):
-    res = []
-    for i in range(grid.cols):
-        if grid.grid[0][i] == 0:
-            res.append(i)
-    return random.choice(res)
+    return random.randint(0, grid.cols - 4)
+
+def render(grid, block, x_offset, y_offset):
+    y_val = -1
+    for y in enumerate(block.block):
+        if y != [0,0,0,0]:
+            continue;
+        y += 1
+        for x in y:
+            grid.grid[y_val + y_offset][x + x_offset] = 1
+
+    return grid
 
 def check_collision(grid, pos, i):
     return i+1 == grid.rows or grid.grid[i+1][pos] == 1
