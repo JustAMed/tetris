@@ -49,7 +49,7 @@ class Block:
         keys = list(blocks.keys())
         self.key = choice(keys)
         self._block = blocks[self.key]
-        self.y_offset = 0
+        self.y_offset = -1
         self.x_offset = None
 
     @property
