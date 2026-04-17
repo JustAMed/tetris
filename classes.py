@@ -48,20 +48,11 @@ class Block:
         }
         keys = list(blocks.keys())
         self.key = choice(keys)
-        self._block = blocks[self.key]
+        self.block = blocks[self.key]
         self.y_offset = -1
         self.x_offset = None
+    
 
-    @property
-    def block(self):
-        return self.cleanse(self._block)
-
-    def cleanse(self, data):
-        res = []
-        for i in data:
-            if i != [0,0,0,0]:
-                res.append(i)
-        return res
 class Grid:
     def __init__(self, rows, cols):
         self.cols = cols
